@@ -1,0 +1,377 @@
+============ after processor `livevar_analysis` ================
+
+[variant baseline]
+public fun Bbay::add_items($t0|account: signer, $t1|item_id: u64, $t2|item_name: vector<u64>, $t3|item_quantity: u64, $t4|item_price: u64, $t5|selling_status: bool) {
+     var $t6|i: u64
+     var $t7|num_of_products: &mut u64
+     var $t8|owner_data: &mut Bbay::Owner
+     var $t9|product_data: &mut Bbay::Products
+     var $t10: u64
+     var $t11: address
+     var $t12: &mut Bbay::Owner
+     var $t13: table::Table<address, address>
+     var $t14: address
+     var $t15: address
+     var $t16: &mut Bbay::Products
+     var $t17: &mut u64
+     var $t18: u64
+     var $t19: u64
+     var $t20: bool
+     var $t21: u64
+     var $t22: bool
+     var $t23: &mut table::Table<u64, u64>
+     var $t24: &mut table::Table<u64, u64>
+     var $t25: &mut table::Table<u64, bool>
+     var $t26: u64
+     var $t27: u64
+     var $t28: u64
+     var $t29: u64
+     var $t30: u64
+     var $t31: &mut vector<u64>
+     var $t32: &mut table::Table<u64, vector<u64>>
+     var $t33: &mut table::Table<u64, bool>
+     var $t34: bool
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status
+  0: trace_local[account]($t0)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status
+  1: trace_local[item_id]($t1)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status
+  2: trace_local[item_name]($t2)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status
+  3: trace_local[item_quantity]($t3)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status
+  4: trace_local[item_price]($t4)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status
+  5: trace_local[selling_status]($t5)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status
+  6: $t10 := 0
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status, $t10
+  7: $t6 := $t10
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status, i, $t10
+  8: trace_local[i]($t10)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status, i
+  9: $t11 := signer::address_of($t0)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status, i, $t11
+ 10: $t12 := borrow_global<Bbay::Owner>($t11)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status, i, $t12
+ 11: trace_local[owner_data]($t12)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status, i, $t12
+ 12: $t13 := get_field<Bbay::Owner>.resource_account($t12)
+     # live vars: account, item_id, item_name, item_quantity, item_price, selling_status, i, $t12, $t13
+ 13: $t14 := signer::address_of($t0)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t12, $t13, $t14
+ 14: $t15 := table::borrow<address, address>($t13, $t14)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t12, $t15
+ 15: $t16 := borrow_global<Bbay::Products>($t15)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t12, $t16
+ 16: trace_local[product_data]($t16)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t12, $t16
+ 17: $t17 := borrow_field<Bbay::Owner>.num_of_products_added($t12)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 18: trace_local[num_of_products]($t17)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 19: label L5
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 20: $t18 := read_ref($t17)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t18
+ 21: $t19 := +($t18, $t3)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t19
+ 22: $t20 := <=($t6, $t19)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t20
+ 23: if ($t20) goto 24 else goto 46
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 24: label L1
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 25: label L2
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 26: $t21 := read_ref($t17)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t21
+ 27: $t22 := >($t6, $t21)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t22
+ 28: if ($t22) goto 29 else goto 36
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 29: label L4
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 30: $t23 := borrow_field<Bbay::Products>.sr_number($t16)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t23
+ 31: table::add<u64, u64>($t23, $t6, $t1)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 32: $t24 := borrow_field<Bbay::Products>.item_price($t16)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t24
+ 33: table::add<u64, u64>($t24, $t6, $t4)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 34: $t25 := borrow_field<Bbay::Products>.item_on_selling($t16)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t25
+ 35: table::add<u64, bool>($t25, $t6, $t5)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 36: label L3
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 37: $t26 := read_ref($t17)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t26
+ 38: $t27 := 1
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t26, $t27
+ 39: $t28 := +($t26, $t27)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t28
+ 40: write_ref($t17, $t28)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 41: $t29 := 1
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t29
+ 42: $t30 := +($t6, $t29)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, $t16, $t17, $t30
+ 43: $t6 := $t30
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17, $t30
+ 44: trace_local[i]($t30)
+     # live vars: item_id, item_name, item_quantity, item_price, selling_status, i, $t16, $t17
+ 45: goto 19
+     # live vars: item_id, item_name, $t16, $t17
+ 46: label L0
+     # live vars: item_id, item_name, $t16, $t17
+ 47: destroy($t17)
+     # live vars: item_id, item_name, $t16
+ 48: $t31 := borrow_field<Bbay::Products>.item_id($t16)
+     # live vars: item_id, item_name, $t16, $t31
+ 49: vector::push_back<u64>($t31, $t1)
+     # live vars: item_id, item_name, $t16
+ 50: $t32 := borrow_field<Bbay::Products>.item_name($t16)
+     # live vars: item_id, item_name, $t16, $t32
+ 51: table::add<u64, vector<u64>>($t32, $t1, $t2)
+     # live vars: item_id, $t16
+ 52: $t33 := borrow_field<Bbay::Products>.item_sold($t16)
+     # live vars: item_id, $t33
+ 53: $t34 := false
+     # live vars: item_id, $t33, $t34
+ 54: table::add<u64, bool>($t33, $t1, $t34)
+     # live vars:
+ 55: return ()
+}
+
+
+[variant baseline]
+public fun Bbay::get_resource_account($t0|addr: address): address {
+     var $t1: address
+     var $t2: Bbay::Owner
+     var $t3: table::Table<address, address>
+     var $t4: address
+     # live vars: addr
+  0: trace_local[addr]($t0)
+     # live vars: addr
+  1: $t1 := 0x1a
+     # live vars: addr, $t1
+  2: $t2 := get_global<Bbay::Owner>($t1)
+     # live vars: addr, $t2
+  3: $t3 := get_field<Bbay::Owner>.resource_account($t2)
+     # live vars: addr, $t3
+  4: $t4 := table::borrow<address, address>($t3, $t0)
+     # live vars: $t4
+  5: trace_return[0]($t4)
+     # live vars: $t4
+  6: return $t4
+}
+
+
+[variant baseline]
+fun Bbay::init_module($t0|account: signer) {
+     var $t1: address
+     var $t2: u64
+     var $t3: u64
+     var $t4: table::Table<address, address>
+     var $t5: Bbay::Owner
+     # live vars: account
+  0: trace_local[account]($t0)
+     # live vars: account
+  1: $t1 := signer::address_of($t0)
+     # live vars: account, $t1
+  2: $t2 := 0
+     # live vars: account, $t1, $t2
+  3: $t3 := 0
+     # live vars: account, $t1, $t2, $t3
+  4: $t4 := table::new<address, address>()
+     # live vars: account, $t1, $t2, $t3, $t4
+  5: $t5 := pack Bbay::Owner($t1, $t2, $t3, $t4)
+     # live vars: account, $t5
+  6: move_to<Bbay::Owner>($t5, $t0)
+     # live vars:
+  7: return ()
+}
+
+
+[variant baseline]
+public fun Bbay::order<#0>($t0|account: signer, $t1|item_id: u64, $t2|sr_no: u64, $t3|prepaid: bool) {
+     var $t4|product_data: Bbay::Products
+     var $t5|resource_account: address
+     var $t6|resource_account_signer: signer
+     var $t7|user_data: &mut Bbay::User
+     var $t8: address
+     var $t9: address
+     var $t10: Bbay::ResourceAccountSignerCap
+     var $t11: account::SignerCapability
+     var $t12: signer
+     var $t13: &mut Bbay::User
+     var $t14: address
+     var $t15: Bbay::Products
+     var $t16: &mut vector<u64>
+     var $t17: &mut vector<u64>
+     var $t18: u64
+     var $t19: bool
+     var $t20: bool
+     var $t21: address
+     var $t22: table::Table<u64, u64>
+     var $t23: u64
+     var $t24: &mut vector<u64>
+     var $t25: u64
+     var $t26: &mut vector<u64>
+     var $t27: u64
+     # live vars: account, item_id, sr_no, prepaid
+  0: trace_local[account]($t0)
+     # live vars: account, item_id, sr_no, prepaid
+  1: trace_local[item_id]($t1)
+     # live vars: account, item_id, sr_no, prepaid
+  2: trace_local[sr_no]($t2)
+     # live vars: account, item_id, sr_no, prepaid
+  3: trace_local[prepaid]($t3)
+     # live vars: account, item_id, sr_no, prepaid
+  4: $t8 := signer::address_of($t0)
+     # live vars: item_id, sr_no, prepaid, $t8
+  5: $t9 := Bbay::get_resource_account($t8)
+     # live vars: item_id, sr_no, prepaid, $t9
+  6: trace_local[resource_account]($t9)
+     # live vars: item_id, sr_no, prepaid, $t9
+  7: $t10 := get_global<Bbay::ResourceAccountSignerCap>($t9)
+     # live vars: item_id, sr_no, prepaid, $t9, $t10
+  8: $t11 := get_field<Bbay::ResourceAccountSignerCap>.signer_cap($t10)
+     # live vars: item_id, sr_no, prepaid, $t9, $t11
+  9: $t12 := account::create_signer_with_capability($t11)
+     # live vars: item_id, sr_no, prepaid, $t9, $t12
+ 10: trace_local[resource_account_signer]($t12)
+     # live vars: item_id, sr_no, prepaid, $t9, $t12
+ 11: $t13 := borrow_global<Bbay::User>($t9)
+     # live vars: item_id, sr_no, prepaid, $t12, $t13
+ 12: trace_local[user_data]($t13)
+     # live vars: item_id, sr_no, prepaid, $t12, $t13
+ 13: $t14 := 0x1a
+     # live vars: item_id, sr_no, prepaid, $t12, $t13, $t14
+ 14: $t15 := get_global<Bbay::Products>($t14)
+     # live vars: item_id, sr_no, prepaid, $t12, $t13, $t15
+ 15: trace_local[product_data]($t15)
+     # live vars: item_id, sr_no, prepaid, $t12, $t13, $t15
+ 16: $t16 := borrow_field<Bbay::User>.orders($t13)
+     # live vars: item_id, sr_no, prepaid, $t12, $t13, $t15, $t16
+ 17: vector::push_back<u64>($t16, $t1)
+     # live vars: sr_no, prepaid, $t12, $t13, $t15
+ 18: $t17 := borrow_field<Bbay::User>.order_status($t13)
+     # live vars: sr_no, prepaid, $t12, $t13, $t15, $t17
+ 19: $t18 := 1
+     # live vars: sr_no, prepaid, $t12, $t13, $t15, $t17, $t18
+ 20: vector::push_back<u64>($t17, $t18)
+     # live vars: sr_no, prepaid, $t12, $t13, $t15
+ 21: $t19 := true
+     # live vars: sr_no, prepaid, $t12, $t13, $t15, $t19
+ 22: $t20 := ==($t3, $t19)
+     # live vars: sr_no, $t12, $t13, $t15, $t20
+ 23: if ($t20) goto 24 else goto 33
+     # live vars: sr_no, $t12, $t13, $t15
+ 24: label L1
+     # live vars: sr_no, $t12, $t13, $t15
+ 25: $t21 := 0x1a
+     # live vars: sr_no, $t12, $t13, $t15, $t21
+ 26: $t22 := get_field<Bbay::Products>.item_price($t15)
+     # live vars: sr_no, $t12, $t13, $t21, $t22
+ 27: $t23 := table::borrow<u64, u64>($t22, $t2)
+     # live vars: $t12, $t13, $t21, $t23
+ 28: coin::transfer<#0>($t12, $t21, $t23)
+     # live vars: $t13
+ 29: $t24 := borrow_field<Bbay::User>.payment_status($t13)
+     # live vars: $t24
+ 30: $t25 := 2
+     # live vars: $t24, $t25
+ 31: vector::push_back<u64>($t24, $t25)
+     # live vars:
+ 32: goto 37
+     # live vars: $t13
+ 33: label L0
+     # live vars: $t13
+ 34: $t26 := borrow_field<Bbay::User>.payment_status($t13)
+     # live vars: $t26
+ 35: $t27 := 1
+     # live vars: $t26, $t27
+ 36: vector::push_back<u64>($t26, $t27)
+     # live vars:
+ 37: label L2
+     # live vars:
+ 38: return ()
+}
+
+
+[variant baseline]
+public fun Bbay::register_account($t0|account: signer, $t1|seed: vector<u8>) {
+     var $t2|owner_data: &mut Bbay::Owner
+     var $t3|resource_account: signer
+     var $t4|resource_account_signer_cap: account::SignerCapability
+     var $t5: address
+     var $t6: &mut Bbay::Owner
+     var $t7: u64
+     var $t8: u64
+     var $t9: u64
+     var $t10: &mut u64
+     var $t11: signer
+     var $t12: account::SignerCapability
+     var $t13: u64
+     var $t14: vector<u64>
+     var $t15: vector<u64>
+     var $t16: vector<u64>
+     var $t17: Bbay::User
+     var $t18: Bbay::ResourceAccountSignerCap
+     # live vars: account, seed
+  0: trace_local[account]($t0)
+     # live vars: account, seed
+  1: trace_local[seed]($t1)
+     # live vars: account, seed
+  2: $t5 := 0x1a
+     # live vars: account, seed, $t5
+  3: $t6 := borrow_global<Bbay::Owner>($t5)
+     # live vars: account, seed, $t6
+  4: trace_local[owner_data]($t6)
+     # live vars: account, seed, $t6
+  5: $t7 := get_field<Bbay::Owner>.user_count($t6)
+     # live vars: account, seed, $t6, $t7
+  6: $t8 := 1
+     # live vars: account, seed, $t6, $t7, $t8
+  7: $t9 := +($t7, $t8)
+     # live vars: account, seed, $t6, $t9
+  8: $t10 := borrow_field<Bbay::Owner>.user_count($t6)
+     # live vars: account, seed, $t6, $t9, $t10
+  9: write_ref($t10, $t9)
+     # live vars: account, seed, $t6
+ 10: ($t11, $t12) := account::create_resource_account($t0, $t1)
+     # live vars: $t6, $t11, $t12
+ 11: trace_local[resource_account_signer_cap]($t12)
+     # live vars: $t6, $t11, $t12
+ 12: trace_local[resource_account]($t11)
+     # live vars: $t6, $t11, $t12
+ 13: $t13 := get_field<Bbay::Owner>.user_count($t6)
+     # live vars: $t11, $t12, $t13
+ 14: $t14 := vector::empty<u64>()
+     # live vars: $t11, $t12, $t13, $t14
+ 15: $t15 := vector::empty<u64>()
+     # live vars: $t11, $t12, $t13, $t14, $t15
+ 16: $t16 := vector::empty<u64>()
+     # live vars: $t11, $t12, $t13, $t14, $t15, $t16
+ 17: $t17 := pack Bbay::User($t13, $t14, $t15, $t16)
+     # live vars: $t11, $t12, $t17
+ 18: move_to<Bbay::User>($t17, $t11)
+     # live vars: $t11, $t12
+ 19: coin::register<aptos_coin::AptosCoin>($t11)
+     # live vars: $t11, $t12
+ 20: $t18 := pack Bbay::ResourceAccountSignerCap($t12)
+     # live vars: $t11, $t18
+ 21: move_to<Bbay::ResourceAccountSignerCap>($t18, $t11)
+     # live vars:
+ 22: return ()
+}
+
+
+[variant baseline]
+public fun Bbay::trigger_delivery() {
+     # live vars:
+  0: return ()
+}

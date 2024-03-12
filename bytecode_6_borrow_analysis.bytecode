@@ -1,0 +1,604 @@
+==== borrow analysis summaries ====
+
+fun vector::borrow_mut[baseline]
+borrowed_by: Reference($t0) -> {([], Return(0))}
+borrows_from: Return(0) -> {([], Reference($t0))}
+
+fun table::borrow_mut[baseline]
+borrowed_by: Reference($t0) -> {([], Return(0))}
+borrows_from: Return(0) -> {([], Reference($t0))}
+
+fun table::borrow_mut_with_default[baseline]
+borrowed_by: Reference($t0) -> {([], Return(0))}
+borrows_from: Return(0) -> {([], Reference($t0))}
+
+fun option::borrow_mut[baseline]
+borrowed_by: Reference($t0) -> {(.vec (vector<#0>)/[], Return(0))}
+borrows_from: Return(0) -> {(.vec (vector<#0>)/[], Reference($t0))}
+
+fun simple_map::borrow_mut[baseline]
+borrowed_by: Reference($t0) -> {([], Return(0))}
+borrows_from: Return(0) -> {([], Reference($t0))}
+
+fun table_with_length::borrow_mut[baseline]
+borrowed_by: Reference($t0) -> {([], Return(0))}
+borrows_from: Return(0) -> {([], Reference($t0))}
+
+fun table_with_length::borrow_mut_with_default[baseline]
+borrowed_by: Reference($t0) -> {([], Return(0))}
+borrows_from: Return(0) -> {([], Reference($t0))}
+
+fun smart_table::borrow_mut[baseline]
+borrowed_by: Reference($t0) -> {([], Return(0))}
+borrows_from: Return(0) -> {([], Reference($t0))}
+
+fun smart_table::borrow_mut_with_default[baseline]
+borrowed_by: Reference($t0) -> {([], Return(0))}
+borrows_from: Return(0) -> {([], Reference($t0))}
+
+fun smart_table::borrow_buckets_mut[baseline]
+borrowed_by: Reference($t0) -> {(.buckets (table_with_length::TableWithLength<u64, vector<smart_table::Entry<#0, #1>>>), Return(0))}
+borrows_from: Return(0) -> {(.buckets (table_with_length::TableWithLength<u64, vector<smart_table::Entry<#0, #1>>>), Reference($t0))}
+
+fun smart_table::borrow_kv_mut[baseline]
+borrowed_by: Reference($t0) -> {(.key (#0), Return(0)), (.value (#1), Return(1))}
+borrows_from: Return(0) -> {(.key (#0), Reference($t0))}, Return(1) -> {(.value (#1), Reference($t0))}
+
+============ after processor `borrow_analysis` ================
+
+[variant baseline]
+public fun Bbay::add_items($t0|account: signer, $t1|item_id: u64, $t2|item_name: vector<u64>, $t3|item_quantity: u64, $t4|item_price: u64, $t5|selling_status: bool) {
+     var $t6|i: u64
+     var $t7|num_of_products: &mut u64
+     var $t8|owner_data: &mut Bbay::Owner
+     var $t9|product_data: &mut Bbay::Products
+     var $t10: u64
+     var $t11: address
+     var $t12: &mut Bbay::Owner
+     var $t13: table::Table<address, address>
+     var $t14: address
+     var $t15: address
+     var $t16: &mut Bbay::Products
+     var $t17: &mut u64
+     var $t18: u64
+     var $t19: u64
+     var $t20: bool
+     var $t21: u64
+     var $t22: bool
+     var $t23: &mut table::Table<u64, u64>
+     var $t24: &mut table::Table<u64, u64>
+     var $t25: &mut table::Table<u64, bool>
+     var $t26: u64
+     var $t27: u64
+     var $t28: u64
+     var $t29: u64
+     var $t30: u64
+     var $t31: &mut vector<u64>
+     var $t32: &mut table::Table<u64, vector<u64>>
+     var $t33: &mut table::Table<u64, bool>
+     var $t34: bool
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5)
+  0: trace_local[account]($t0)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5)
+  1: trace_local[item_id]($t1)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5)
+  2: trace_local[item_name]($t2)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5)
+  3: trace_local[item_quantity]($t3)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5)
+  4: trace_local[item_price]($t4)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5)
+  5: trace_local[selling_status]($t5)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5)
+  6: $t10 := 0
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5)
+  7: $t6 := $t10
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6)
+  8: trace_local[i]($t10)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6)
+  9: $t11 := signer::address_of($t0)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6)
+ 10: $t12 := borrow_global<Bbay::Owner>($t11)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t12)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}
+ 11: trace_local[owner_data]($t12)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t12)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}
+ 12: $t13 := get_field<Bbay::Owner>.resource_account($t12)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t12)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}
+ 13: $t14 := signer::address_of($t0)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t12)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}
+ 14: $t15 := table::borrow<address, address>($t13, $t14)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t12)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}
+ 15: $t16 := borrow_global<Bbay::Products>($t15)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t12), Reference($t16)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}
+ 16: trace_local[product_data]($t16)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t12), Reference($t16)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}
+ 17: $t17 := borrow_field<Bbay::Owner>.num_of_products_added($t12)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}
+ 18: trace_local[num_of_products]($t17)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 19: label L5
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 20: $t18 := read_ref($t17)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 21: $t19 := +($t18, $t3)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 22: $t20 := <=($t6, $t19)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 23: if ($t20) goto 24 else goto 46
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 24: label L1
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 25: label L2
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 26: $t21 := read_ref($t17)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 27: $t22 := >($t6, $t21)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 28: if ($t22) goto 29 else goto 36
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 29: label L4
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 30: $t23 := borrow_field<Bbay::Products>.sr_number($t16)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17), Reference($t23)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 31: table::add<u64, u64>($t23, $t6, $t1)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 32: $t24 := borrow_field<Bbay::Products>.item_price($t16)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17), Reference($t24)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 33: table::add<u64, u64>($t24, $t6, $t4)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 34: $t25 := borrow_field<Bbay::Products>.item_on_selling($t16)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17), Reference($t25)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 35: table::add<u64, bool>($t25, $t6, $t5)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 36: label L3
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 37: $t26 := read_ref($t17)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 38: $t27 := 1
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 39: $t28 := +($t26, $t27)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 40: write_ref($t17, $t28)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 41: $t29 := 1
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 42: $t30 := +($t6, $t29)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 43: $t6 := $t30
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 44: trace_local[i]($t30)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 45: goto 19
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 46: label L0
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t17)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 47: destroy($t17)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}
+ 48: $t31 := borrow_field<Bbay::Products>.item_id($t16)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t31)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25)), (.item_id (vector<u64>), Reference($t31))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}, Reference($t31) -> {(.item_id (vector<u64>), Reference($t16))}
+ 49: vector::push_back<u64>($t31, $t1)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25)), (.item_id (vector<u64>), Reference($t31))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}, Reference($t31) -> {(.item_id (vector<u64>), Reference($t16))}
+ 50: $t32 := borrow_field<Bbay::Products>.item_name($t16)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16), Reference($t32)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25)), (.item_id (vector<u64>), Reference($t31)), (.item_name (table::Table<u64, vector<u64>>), Reference($t32))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}, Reference($t31) -> {(.item_id (vector<u64>), Reference($t16))}, Reference($t32) -> {(.item_name (table::Table<u64, vector<u64>>), Reference($t16))}
+ 51: table::add<u64, vector<u64>>($t32, $t1, $t2)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t16)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25)), (.item_id (vector<u64>), Reference($t31)), (.item_name (table::Table<u64, vector<u64>>), Reference($t32))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}, Reference($t31) -> {(.item_id (vector<u64>), Reference($t16))}, Reference($t32) -> {(.item_name (table::Table<u64, vector<u64>>), Reference($t16))}
+ 52: $t33 := borrow_field<Bbay::Products>.item_sold($t16)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t33)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25)), (.item_id (vector<u64>), Reference($t31)), (.item_name (table::Table<u64, vector<u64>>), Reference($t32)), (.item_sold (table::Table<u64, bool>), Reference($t33))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}, Reference($t31) -> {(.item_id (vector<u64>), Reference($t16))}, Reference($t32) -> {(.item_name (table::Table<u64, vector<u64>>), Reference($t16))}, Reference($t33) -> {(.item_sold (table::Table<u64, bool>), Reference($t16))}
+ 53: $t34 := false
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6), Reference($t33)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25)), (.item_id (vector<u64>), Reference($t31)), (.item_name (table::Table<u64, vector<u64>>), Reference($t32)), (.item_sold (table::Table<u64, bool>), Reference($t33))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}, Reference($t31) -> {(.item_id (vector<u64>), Reference($t16))}, Reference($t32) -> {(.item_name (table::Table<u64, vector<u64>>), Reference($t16))}, Reference($t33) -> {(.item_sold (table::Table<u64, bool>), Reference($t16))}
+ 54: table::add<u64, bool>($t33, $t1, $t34)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), LocalRoot($t4), LocalRoot($t5), LocalRoot($t6)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t12))}, Bbay::Products -> {(@, Reference($t16))}, Reference($t12) -> {(.num_of_products_added (u64), Reference($t17))}, Reference($t16) -> {(.sr_number (table::Table<u64, u64>), Reference($t23)), (.item_price (table::Table<u64, u64>), Reference($t24)), (.item_on_selling (table::Table<u64, bool>), Reference($t25)), (.item_id (vector<u64>), Reference($t31)), (.item_name (table::Table<u64, vector<u64>>), Reference($t32)), (.item_sold (table::Table<u64, bool>), Reference($t33))}
+     # borrows_from: Reference($t12) -> {(@, Bbay::Owner)}, Reference($t16) -> {(@, Bbay::Products)}, Reference($t17) -> {(.num_of_products_added (u64), Reference($t12))}, Reference($t23) -> {(.sr_number (table::Table<u64, u64>), Reference($t16))}, Reference($t24) -> {(.item_price (table::Table<u64, u64>), Reference($t16))}, Reference($t25) -> {(.item_on_selling (table::Table<u64, bool>), Reference($t16))}, Reference($t31) -> {(.item_id (vector<u64>), Reference($t16))}, Reference($t32) -> {(.item_name (table::Table<u64, vector<u64>>), Reference($t16))}, Reference($t33) -> {(.item_sold (table::Table<u64, bool>), Reference($t16))}
+ 55: return ()
+}
+
+
+[variant baseline]
+public fun Bbay::get_resource_account($t0|addr: address): address {
+     var $t1: address
+     var $t2: Bbay::Owner
+     var $t3: table::Table<address, address>
+     var $t4: address
+     # live_nodes: LocalRoot($t0)
+  0: trace_local[addr]($t0)
+     # live_nodes: LocalRoot($t0)
+  1: $t1 := 0x1a
+     # live_nodes: LocalRoot($t0)
+  2: $t2 := get_global<Bbay::Owner>($t1)
+     # live_nodes: LocalRoot($t0)
+  3: $t3 := get_field<Bbay::Owner>.resource_account($t2)
+     # live_nodes: LocalRoot($t0)
+  4: $t4 := table::borrow<address, address>($t3, $t0)
+     # live_nodes: LocalRoot($t0)
+  5: trace_return[0]($t4)
+     # live_nodes: LocalRoot($t0)
+  6: return $t4
+}
+
+
+[variant baseline]
+fun Bbay::init_module($t0|account: signer) {
+     var $t1: address
+     var $t2: u64
+     var $t3: u64
+     var $t4: table::Table<address, address>
+     var $t5: Bbay::Owner
+     # live_nodes: LocalRoot($t0)
+  0: trace_local[account]($t0)
+     # live_nodes: LocalRoot($t0)
+  1: $t1 := signer::address_of($t0)
+     # live_nodes: LocalRoot($t0)
+  2: $t2 := 0
+     # live_nodes: LocalRoot($t0)
+  3: $t3 := 0
+     # live_nodes: LocalRoot($t0)
+  4: $t4 := table::new<address, address>()
+     # live_nodes: LocalRoot($t0)
+  5: $t5 := pack Bbay::Owner($t1, $t2, $t3, $t4)
+     # live_nodes: LocalRoot($t0)
+  6: move_to<Bbay::Owner>($t5, $t0)
+     # live_nodes: LocalRoot($t0)
+  7: return ()
+}
+
+
+[variant baseline]
+public fun Bbay::order<#0>($t0|account: signer, $t1|item_id: u64, $t2|sr_no: u64, $t3|prepaid: bool) {
+     var $t4|product_data: Bbay::Products
+     var $t5|resource_account: address
+     var $t6|resource_account_signer: signer
+     var $t7|user_data: &mut Bbay::User
+     var $t8: address
+     var $t9: address
+     var $t10: Bbay::ResourceAccountSignerCap
+     var $t11: account::SignerCapability
+     var $t12: signer
+     var $t13: &mut Bbay::User
+     var $t14: address
+     var $t15: Bbay::Products
+     var $t16: &mut vector<u64>
+     var $t17: &mut vector<u64>
+     var $t18: u64
+     var $t19: bool
+     var $t20: bool
+     var $t21: address
+     var $t22: table::Table<u64, u64>
+     var $t23: u64
+     var $t24: &mut vector<u64>
+     var $t25: u64
+     var $t26: &mut vector<u64>
+     var $t27: u64
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+  0: trace_local[account]($t0)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+  1: trace_local[item_id]($t1)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+  2: trace_local[sr_no]($t2)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+  3: trace_local[prepaid]($t3)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+  4: $t8 := signer::address_of($t0)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+  5: $t9 := Bbay::get_resource_account($t8)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+  6: trace_local[resource_account]($t9)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+  7: $t10 := get_global<Bbay::ResourceAccountSignerCap>($t9)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+  8: $t11 := get_field<Bbay::ResourceAccountSignerCap>.signer_cap($t10)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+  9: $t12 := account::create_signer_with_capability($t11)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+ 10: trace_local[resource_account_signer]($t12)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+ 11: $t13 := borrow_global<Bbay::User>($t9)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}
+ 12: trace_local[user_data]($t13)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}
+ 13: $t14 := 0x1a
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}
+ 14: $t15 := get_global<Bbay::Products>($t14)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}
+ 15: trace_local[product_data]($t15)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}
+ 16: $t16 := borrow_field<Bbay::User>.orders($t13)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13), Reference($t16)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}
+ 17: vector::push_back<u64>($t16, $t1)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}
+ 18: $t17 := borrow_field<Bbay::User>.order_status($t13)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13), Reference($t17)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 19: $t18 := 1
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13), Reference($t17)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 20: vector::push_back<u64>($t17, $t18)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 21: $t19 := true
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 22: $t20 := ==($t3, $t19)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 23: if ($t20) goto 24 else goto 33
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 24: label L1
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 25: $t21 := 0x1a
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 26: $t22 := get_field<Bbay::Products>.item_price($t15)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 27: $t23 := table::borrow<u64, u64>($t22, $t2)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 28: coin::transfer<#0>($t12, $t21, $t23)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 29: $t24 := borrow_field<Bbay::User>.payment_status($t13)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t24)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17)), (.payment_status (vector<u64>), Reference($t24))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}, Reference($t24) -> {(.payment_status (vector<u64>), Reference($t13))}
+ 30: $t25 := 2
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t24)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17)), (.payment_status (vector<u64>), Reference($t24))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}, Reference($t24) -> {(.payment_status (vector<u64>), Reference($t13))}
+ 31: vector::push_back<u64>($t24, $t25)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17)), (.payment_status (vector<u64>), Reference($t24))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}, Reference($t24) -> {(.payment_status (vector<u64>), Reference($t13))}
+ 32: goto 37
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 33: label L0
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t13)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}
+ 34: $t26 := borrow_field<Bbay::User>.payment_status($t13)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t26)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17)), (.payment_status (vector<u64>), Reference($t26))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}, Reference($t26) -> {(.payment_status (vector<u64>), Reference($t13))}
+ 35: $t27 := 1
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3), Reference($t26)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17)), (.payment_status (vector<u64>), Reference($t26))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}, Reference($t26) -> {(.payment_status (vector<u64>), Reference($t13))}
+ 36: vector::push_back<u64>($t26, $t27)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17)), (.payment_status (vector<u64>), Reference($t24)), (.payment_status (vector<u64>), Reference($t26))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}, Reference($t24) -> {(.payment_status (vector<u64>), Reference($t13))}, Reference($t26) -> {(.payment_status (vector<u64>), Reference($t13))}
+ 37: label L2
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), LocalRoot($t2), LocalRoot($t3)
+     # borrowed_by: Bbay::User -> {(@, Reference($t13))}, Reference($t13) -> {(.orders (vector<u64>), Reference($t16)), (.order_status (vector<u64>), Reference($t17)), (.payment_status (vector<u64>), Reference($t24)), (.payment_status (vector<u64>), Reference($t26))}
+     # borrows_from: Reference($t13) -> {(@, Bbay::User)}, Reference($t16) -> {(.orders (vector<u64>), Reference($t13))}, Reference($t17) -> {(.order_status (vector<u64>), Reference($t13))}, Reference($t24) -> {(.payment_status (vector<u64>), Reference($t13))}, Reference($t26) -> {(.payment_status (vector<u64>), Reference($t13))}
+ 38: return ()
+}
+
+
+[variant baseline]
+public fun Bbay::register_account($t0|account: signer, $t1|seed: vector<u8>) {
+     var $t2|owner_data: &mut Bbay::Owner
+     var $t3|resource_account: signer
+     var $t4|resource_account_signer_cap: account::SignerCapability
+     var $t5: address
+     var $t6: &mut Bbay::Owner
+     var $t7: u64
+     var $t8: u64
+     var $t9: u64
+     var $t10: &mut u64
+     var $t11: signer
+     var $t12: account::SignerCapability
+     var $t13: u64
+     var $t14: vector<u64>
+     var $t15: vector<u64>
+     var $t16: vector<u64>
+     var $t17: Bbay::User
+     var $t18: Bbay::ResourceAccountSignerCap
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+  0: trace_local[account]($t0)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+  1: trace_local[seed]($t1)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+  2: $t5 := 0x1a
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+  3: $t6 := borrow_global<Bbay::Owner>($t5)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), Reference($t6)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}
+  4: trace_local[owner_data]($t6)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), Reference($t6)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}
+  5: $t7 := get_field<Bbay::Owner>.user_count($t6)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), Reference($t6)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}
+  6: $t8 := 1
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), Reference($t6)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}
+  7: $t9 := +($t7, $t8)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), Reference($t6)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}
+  8: $t10 := borrow_field<Bbay::Owner>.user_count($t6)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), Reference($t6), Reference($t10)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+  9: write_ref($t10, $t9)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), Reference($t6)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 10: ($t11, $t12) := account::create_resource_account($t0, $t1)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), Reference($t6)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 11: trace_local[resource_account_signer_cap]($t12)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), Reference($t6)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 12: trace_local[resource_account]($t11)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1), Reference($t6)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 13: $t13 := get_field<Bbay::Owner>.user_count($t6)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 14: $t14 := vector::empty<u64>()
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 15: $t15 := vector::empty<u64>()
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 16: $t16 := vector::empty<u64>()
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 17: $t17 := pack Bbay::User($t13, $t14, $t15, $t16)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 18: move_to<Bbay::User>($t17, $t11)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 19: coin::register<aptos_coin::AptosCoin>($t11)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 20: $t18 := pack Bbay::ResourceAccountSignerCap($t12)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 21: move_to<Bbay::ResourceAccountSignerCap>($t18, $t11)
+     # live_nodes: LocalRoot($t0), LocalRoot($t1)
+     # borrowed_by: Bbay::Owner -> {(@, Reference($t6))}, Reference($t6) -> {(.user_count (u64), Reference($t10))}
+     # borrows_from: Reference($t6) -> {(@, Bbay::Owner)}, Reference($t10) -> {(.user_count (u64), Reference($t6))}
+ 22: return ()
+}
+
+
+[variant baseline]
+public fun Bbay::trigger_delivery() {
+  0: return ()
+}

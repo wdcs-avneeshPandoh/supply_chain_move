@@ -1,0 +1,368 @@
+============ after processor `global_invariant_instrumentation` ================
+
+[variant verification]
+public fun Bbay::add_items($t0|account: signer, $t1|item_id: u64, $t2|item_name: vector<u64>, $t3|item_quantity: u64, $t4|item_price: u64, $t5|selling_status: bool) {
+     var $t6|i: u64
+     var $t7|num_of_products: &mut u64
+     var $t8|owner_data: &mut Bbay::Owner
+     var $t9|product_data: &mut Bbay::Products
+     var $t10: u64
+     var $t11: address
+     var $t12: num
+     var $t13: &mut Bbay::Owner
+     var $t14: table::Table<address, address>
+     var $t15: address
+     var $t16: address
+     var $t17: &mut Bbay::Products
+     var $t18: &mut u64
+     var $t19: u64
+     var $t20: u64
+     var $t21: bool
+     var $t22: u64
+     var $t23: bool
+     var $t24: u64
+     var $t25: u64
+     var $t26: u64
+     var $t27: u64
+     var $t28: u64
+     var $t29: &mut table::Table<u64, u64>
+     var $t30: &mut table::Table<u64, u64>
+     var $t31: &mut table::Table<u64, bool>
+     var $t32: &mut vector<u64>
+     var $t33: &mut table::Table<u64, vector<u64>>
+     var $t34: &mut table::Table<u64, bool>
+     var $t35: bool
+  0: trace_local[account]($t0)
+  1: trace_local[item_id]($t1)
+  2: trace_local[item_name]($t2)
+  3: trace_local[item_quantity]($t3)
+  4: trace_local[item_price]($t4)
+  5: trace_local[selling_status]($t5)
+  6: $t10 := 0
+  7: trace_local[i]($t10)
+  8: $t11 := signer::address_of($t0) on_abort goto 101 with $t12
+  9: $t13 := borrow_global<Bbay::Owner>($t11) on_abort goto 101 with $t12
+ 10: trace_local[owner_data]($t13)
+ 11: $t14 := get_field<Bbay::Owner>.resource_account($t13)
+ 12: $t15 := signer::address_of($t0) on_abort goto 101 with $t12
+ 13: $t16 := table::borrow<address, address>($t14, $t15) on_abort goto 101 with $t12
+ 14: $t17 := borrow_global<Bbay::Products>($t16) on_abort goto 101 with $t12
+ 15: trace_local[product_data]($t17)
+ 16: $t18 := borrow_field<Bbay::Owner>.num_of_products_added($t13)
+ 17: trace_local[num_of_products]($t18)
+ 18: label L5
+ 19: $t6 := havoc[val]()
+ 20: assume WellFormed($t6)
+ 21: $t19 := havoc[val]()
+ 22: assume WellFormed($t19)
+ 23: $t20 := havoc[val]()
+ 24: assume WellFormed($t20)
+ 25: $t21 := havoc[val]()
+ 26: assume WellFormed($t21)
+ 27: $t22 := havoc[val]()
+ 28: assume WellFormed($t22)
+ 29: $t23 := havoc[val]()
+ 30: assume WellFormed($t23)
+ 31: $t24 := havoc[val]()
+ 32: assume WellFormed($t24)
+ 33: $t25 := havoc[val]()
+ 34: assume WellFormed($t25)
+ 35: $t26 := havoc[val]()
+ 36: assume WellFormed($t26)
+ 37: $t27 := havoc[val]()
+ 38: assume WellFormed($t27)
+ 39: $t28 := havoc[val]()
+ 40: assume WellFormed($t28)
+ 41: $t17 := havoc[mut]()
+ 42: assume WellFormed($t17)
+ 43: $t18 := havoc[mut]()
+ 44: assume WellFormed($t18)
+ 45: $t29 := havoc[mut_all]()
+ 46: assume WellFormed($t29)
+ 47: $t30 := havoc[mut_all]()
+ 48: assume WellFormed($t30)
+ 49: $t31 := havoc[mut_all]()
+ 50: assume WellFormed($t31)
+     # info: enter loop, variable(s) i havocked and reassigned
+ 51: trace_local[i]($t6)
+ 52: assume Not(AbortFlag())
+ 53: $t19 := read_ref($t18)
+ 54: $t20 := +($t19, $t3) on_abort goto 101 with $t12
+ 55: $t21 := <=($t6, $t20)
+ 56: if ($t21) goto 103 else goto 81
+ 57: label L1
+ 58: label L2
+ 59: $t22 := read_ref($t18)
+ 60: $t23 := >($t6, $t22)
+ 61: if ($t23) goto 62 else goto 106
+ 62: label L4
+ 63: $t29 := borrow_field<Bbay::Products>.sr_number($t17)
+ 64: table::add<u64, u64>($t29, $t6, $t1) on_abort goto 101 with $t12
+ 65: write_back[Reference($t17).sr_number (table::Table<u64, u64>)]($t29)
+ 66: $t30 := borrow_field<Bbay::Products>.item_price($t17)
+ 67: table::add<u64, u64>($t30, $t6, $t4) on_abort goto 101 with $t12
+ 68: write_back[Reference($t17).item_price (table::Table<u64, u64>)]($t30)
+ 69: $t31 := borrow_field<Bbay::Products>.item_on_selling($t17)
+ 70: table::add<u64, bool>($t31, $t6, $t5) on_abort goto 101 with $t12
+ 71: write_back[Reference($t17).item_on_selling (table::Table<u64, bool>)]($t31)
+ 72: label L3
+ 73: $t24 := read_ref($t18)
+ 74: $t25 := 1
+ 75: $t26 := +($t24, $t25) on_abort goto 101 with $t12
+ 76: write_ref($t18, $t26)
+ 77: $t27 := 1
+ 78: $t28 := +($t6, $t27) on_abort goto 101 with $t12
+ 79: trace_local[i]($t28)
+ 80: goto 97
+ 81: label L0
+ 82: write_back[Reference($t13).num_of_products_added (u64)]($t18)
+ 83: write_back[Bbay::Owner@]($t13)
+ 84: destroy($t18)
+ 85: $t32 := borrow_field<Bbay::Products>.item_id($t17)
+ 86: vector::push_back<u64>($t32, $t1) on_abort goto 101 with $t12
+ 87: write_back[Reference($t17).item_id (vector<u64>)]($t32)
+ 88: $t33 := borrow_field<Bbay::Products>.item_name($t17)
+ 89: table::add<u64, vector<u64>>($t33, $t1, $t2) on_abort goto 101 with $t12
+ 90: write_back[Reference($t17).item_name (table::Table<u64, vector<u64>>)]($t33)
+ 91: $t34 := borrow_field<Bbay::Products>.item_sold($t17)
+ 92: $t35 := false
+ 93: table::add<u64, bool>($t34, $t1, $t35) on_abort goto 101 with $t12
+ 94: write_back[Reference($t17).item_sold (table::Table<u64, bool>)]($t34)
+ 95: write_back[Bbay::Products@]($t17)
+ 96: goto 99
+     # Loop invariant checking block for the loop started with header: L5
+ 97: label L6
+ 98: stop()
+ 99: label L7
+100: return ()
+101: label L8
+102: abort($t12)
+103: label L9
+104: destroy($t13)
+105: goto 57
+106: label L10
+107: destroy($t17)
+108: goto 72
+}
+
+
+[variant baseline]
+public fun Bbay::get_resource_account($t0|addr: address): address {
+     var $t1: address
+     var $t2: Bbay::Owner
+     var $t3: num
+     var $t4: table::Table<address, address>
+     var $t5: address
+  0: trace_local[addr]($t0)
+  1: $t1 := 0x1a
+  2: $t2 := get_global<Bbay::Owner>($t1) on_abort goto 8 with $t3
+  3: $t4 := get_field<Bbay::Owner>.resource_account($t2)
+  4: $t5 := table::borrow<address, address>($t4, $t0) on_abort goto 8 with $t3
+  5: trace_return[0]($t5)
+  6: label L1
+  7: return $t5
+  8: label L2
+  9: abort($t3)
+}
+
+
+[variant verification]
+public fun Bbay::get_resource_account($t0|addr: address): address {
+     var $t1: address
+     var $t2: Bbay::Owner
+     var $t3: num
+     var $t4: table::Table<address, address>
+     var $t5: address
+  0: trace_local[addr]($t0)
+  1: $t1 := 0x1a
+  2: $t2 := get_global<Bbay::Owner>($t1) on_abort goto 8 with $t3
+  3: $t4 := get_field<Bbay::Owner>.resource_account($t2)
+  4: $t5 := table::borrow<address, address>($t4, $t0) on_abort goto 8 with $t3
+  5: trace_return[0]($t5)
+  6: label L1
+  7: return $t5
+  8: label L2
+  9: abort($t3)
+}
+
+
+[variant verification]
+fun Bbay::init_module($t0|account: signer) {
+     var $t1: address
+     var $t2: num
+     var $t3: u64
+     var $t4: u64
+     var $t5: table::Table<address, address>
+     var $t6: Bbay::Owner
+  0: trace_local[account]($t0)
+  1: $t1 := signer::address_of($t0) on_abort goto 9 with $t2
+  2: $t3 := 0
+  3: $t4 := 0
+  4: $t5 := table::new<address, address>() on_abort goto 9 with $t2
+  5: $t6 := pack Bbay::Owner($t1, $t3, $t4, $t5)
+  6: move_to<Bbay::Owner>($t6, $t0) on_abort goto 9 with $t2
+  7: label L1
+  8: return ()
+  9: label L2
+ 10: abort($t2)
+}
+
+
+[variant verification]
+public fun Bbay::order<#0>($t0|account: signer, $t1|item_id: u64, $t2|sr_no: u64, $t3|prepaid: bool) {
+     var $t4|product_data: Bbay::Products
+     var $t5|resource_account: address
+     var $t6|resource_account_signer: signer
+     var $t7|user_data: &mut Bbay::User
+     var $t8: address
+     var $t9: num
+     var $t10: address
+     var $t11: Bbay::ResourceAccountSignerCap
+     var $t12: account::SignerCapability
+     var $t13: address
+     var $t14: signer
+     var $t15: &mut Bbay::User
+     var $t16: address
+     var $t17: Bbay::Products
+     var $t18: &mut vector<u64>
+     var $t19: &mut vector<u64>
+     var $t20: u64
+     var $t21: bool
+     var $t22: bool
+     var $t23: address
+     var $t24: table::Table<u64, u64>
+     var $t25: u64
+     var $t26: option::Option<optional_aggregator::OptionalAggregator>
+     var $t27: address
+     var $t28: coin::CoinStore<#0>
+     var $t29: coin::CoinStore<#0>
+     var $t30: &mut vector<u64>
+     var $t31: u64
+     var $t32: &mut vector<u64>
+     var $t33: u64
+  0: trace_local[account]($t0)
+  1: trace_local[item_id]($t1)
+  2: trace_local[sr_no]($t2)
+  3: trace_local[prepaid]($t3)
+  4: $t8 := signer::address_of($t0) on_abort goto 51 with $t9
+  5: $t10 := Bbay::get_resource_account($t8) on_abort goto 51 with $t9
+  6: trace_local[resource_account]($t10)
+  7: $t11 := get_global<Bbay::ResourceAccountSignerCap>($t10) on_abort goto 51 with $t9
+  8: $t12 := get_field<Bbay::ResourceAccountSignerCap>.signer_cap($t11)
+  9: assume Identical($t13, select account::SignerCapability.account($t12))
+ 10: $t14 := account::create_signer_with_capability($t12) on_abort goto 51 with $t9
+ 11: trace_local[resource_account_signer]($t14)
+ 12: $t15 := borrow_global<Bbay::User>($t10) on_abort goto 51 with $t9
+ 13: trace_local[user_data]($t15)
+ 14: $t16 := 0x1a
+ 15: $t17 := get_global<Bbay::Products>($t16) on_abort goto 51 with $t9
+ 16: trace_local[product_data]($t17)
+ 17: $t18 := borrow_field<Bbay::User>.orders($t15)
+ 18: vector::push_back<u64>($t18, $t1) on_abort goto 51 with $t9
+ 19: write_back[Reference($t15).orders (vector<u64>)]($t18)
+ 20: $t19 := borrow_field<Bbay::User>.order_status($t15)
+ 21: $t20 := 1
+ 22: vector::push_back<u64>($t19, $t20) on_abort goto 51 with $t9
+ 23: write_back[Reference($t15).order_status (vector<u64>)]($t19)
+ 24: $t21 := true
+ 25: $t22 := ==($t3, $t21)
+ 26: if ($t22) goto 27 else goto 42
+ 27: label L1
+ 28: $t23 := 0x1a
+ 29: $t24 := get_field<Bbay::Products>.item_price($t17)
+ 30: $t25 := table::borrow<u64, u64>($t24, $t2) on_abort goto 51 with $t9
+ 31: assume Identical($t26, select coin::CoinInfo.supply(global<coin::CoinInfo<#0>>(select type_info::TypeInfo.account_address(type_info::$type_of<#0>()))))
+ 32: assume Identical($t27, signer::$address_of($t14))
+ 33: assume Identical($t28, global<coin::CoinStore<#0>>($t27))
+ 34: assume Identical($t29, global<coin::CoinStore<#0>>($t23))
+ 35: coin::transfer<#0>($t14, $t23, $t25) on_abort goto 51 with $t9
+ 36: $t30 := borrow_field<Bbay::User>.payment_status($t15)
+ 37: $t31 := 2
+ 38: vector::push_back<u64>($t30, $t31) on_abort goto 51 with $t9
+ 39: write_back[Reference($t15).payment_status (vector<u64>)]($t30)
+ 40: write_back[Bbay::User@]($t15)
+ 41: goto 48
+ 42: label L0
+ 43: $t32 := borrow_field<Bbay::User>.payment_status($t15)
+ 44: $t33 := 1
+ 45: vector::push_back<u64>($t32, $t33) on_abort goto 51 with $t9
+ 46: write_back[Reference($t15).payment_status (vector<u64>)]($t32)
+ 47: write_back[Bbay::User@]($t15)
+ 48: label L2
+ 49: label L3
+ 50: return ()
+ 51: label L4
+ 52: abort($t9)
+}
+
+
+[variant verification]
+public fun Bbay::register_account($t0|account: signer, $t1|seed: vector<u8>) {
+     var $t2|owner_data: &mut Bbay::Owner
+     var $t3|resource_account: signer
+     var $t4|resource_account_signer_cap: account::SignerCapability
+     var $t5: address
+     var $t6: &mut Bbay::Owner
+     var $t7: num
+     var $t8: u64
+     var $t9: u64
+     var $t10: u64
+     var $t11: &mut u64
+     var $t12: address
+     var $t13: address
+     var $t14: account::Account
+     var $t15: vector<u8>
+     var $t16: signer
+     var $t17: account::SignerCapability
+     var $t18: u64
+     var $t19: vector<u64>
+     var $t20: vector<u64>
+     var $t21: vector<u64>
+     var $t22: Bbay::User
+     var $t23: option::Option<optional_aggregator::OptionalAggregator>
+     var $t24: address
+     var $t25: account::Account
+     var $t26: Bbay::ResourceAccountSignerCap
+  0: trace_local[account]($t0)
+  1: trace_local[seed]($t1)
+  2: $t5 := 0x1a
+  3: $t6 := borrow_global<Bbay::Owner>($t5) on_abort goto 33 with $t7
+  4: trace_local[owner_data]($t6)
+  5: $t8 := get_field<Bbay::Owner>.user_count($t6)
+  6: $t9 := 1
+  7: $t10 := +($t8, $t9) on_abort goto 33 with $t7
+  8: $t11 := borrow_field<Bbay::Owner>.user_count($t6)
+  9: write_ref($t11, $t10)
+ 10: write_back[Reference($t6).user_count (u64)]($t11)
+ 11: assume Identical($t12, signer::$address_of($t0))
+ 12: assume Identical($t13, account::spec_create_resource_address($t12, $t1))
+ 13: assume Identical($t14, global<account::Account>($t13))
+ 14: assume Identical($t15, bcs::$to_bytes<address>($t13))
+ 15: ($t16, $t17) := account::create_resource_account($t0, $t1) on_abort goto 33 with $t7
+ 16: trace_local[resource_account_signer_cap]($t17)
+ 17: trace_local[resource_account]($t16)
+ 18: $t18 := get_field<Bbay::Owner>.user_count($t6)
+ 19: write_back[Bbay::Owner@]($t6)
+ 20: $t19 := vector::empty<u64>() on_abort goto 33 with $t7
+ 21: $t20 := vector::empty<u64>() on_abort goto 33 with $t7
+ 22: $t21 := vector::empty<u64>() on_abort goto 33 with $t7
+ 23: $t22 := pack Bbay::User($t18, $t19, $t20, $t21)
+ 24: move_to<Bbay::User>($t22, $t16) on_abort goto 33 with $t7
+ 25: assume Identical($t23, select coin::CoinInfo.supply(global<coin::CoinInfo<aptos_coin::AptosCoin>>(select type_info::TypeInfo.account_address(type_info::$type_of<aptos_coin::AptosCoin>()))))
+ 26: assume Identical($t24, signer::$address_of($t16))
+ 27: assume Identical($t25, global<account::Account>($t24))
+ 28: coin::register<aptos_coin::AptosCoin>($t16) on_abort goto 33 with $t7
+ 29: $t26 := pack Bbay::ResourceAccountSignerCap($t17)
+ 30: move_to<Bbay::ResourceAccountSignerCap>($t26, $t16) on_abort goto 33 with $t7
+ 31: label L1
+ 32: return ()
+ 33: label L2
+ 34: abort($t7)
+}
+
+
+[variant verification]
+public fun Bbay::trigger_delivery() {
+  0: label L1
+  1: return ()
+}

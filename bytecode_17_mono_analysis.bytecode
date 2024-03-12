@@ -1,0 +1,516 @@
+==== mono-analysis result ====
+
+struct option::Option = {
+  <address>
+  <aggregator::Aggregator>
+  <optional_aggregator::Integer>
+  <optional_aggregator::OptionalAggregator>
+}
+struct string::String = {
+  <>
+}
+struct type_info::TypeInfo = {
+  <>
+}
+struct aggregator::Aggregator = {
+  <>
+}
+struct optional_aggregator::Integer = {
+  <>
+}
+struct optional_aggregator::OptionalAggregator = {
+  <>
+}
+struct guid::GUID = {
+  <>
+}
+struct guid::ID = {
+  <>
+}
+struct event::EventHandle = {
+  <account::CoinRegisterEvent>
+  <account::KeyRotationEvent>
+  <coin::DepositEvent>
+  <coin::WithdrawEvent>
+}
+struct account::Account = {
+  <>
+}
+struct account::CapabilityOffer = {
+  <account::RotationCapability>
+  <account::SignerCapability>
+}
+struct account::CoinRegisterEvent = {
+  <>
+}
+struct account::KeyRotationEvent = {
+  <>
+}
+struct account::RotationCapability = {
+  <>
+}
+struct account::SignerCapability = {
+  <>
+}
+struct coin::Coin = {
+  <aptos_coin::AptosCoin>
+  <#0>
+}
+struct coin::CoinInfo = {
+  <aptos_coin::AptosCoin>
+  <#0>
+}
+struct coin::CoinStore = {
+  <aptos_coin::AptosCoin>
+  <#0>
+}
+struct coin::DepositEvent = {
+  <>
+}
+struct coin::WithdrawEvent = {
+  <>
+}
+struct coin::Ghost$supply = {
+  <aptos_coin::AptosCoin>
+  <#0>
+}
+struct coin::Ghost$aggregate_supply = {
+  <aptos_coin::AptosCoin>
+  <#0>
+}
+struct aptos_coin::AptosCoin = {
+  <>
+}
+struct Bbay::Owner = {
+  <>
+}
+struct Bbay::Products = {
+  <>
+}
+struct Bbay::ResourceAccountSignerCap = {
+  <>
+}
+struct Bbay::User = {
+  <>
+}
+fun signer::address_of [baseline] = {
+  <>
+}
+fun signer::borrow_address [baseline] = {
+  <>
+}
+fun error::already_exists [baseline] = {
+  <>
+}
+fun error::invalid_argument [baseline] = {
+  <>
+}
+fun error::invalid_state [baseline] = {
+  <>
+}
+fun error::not_found [baseline] = {
+  <>
+}
+fun error::out_of_range [baseline] = {
+  <>
+}
+fun error::permission_denied [baseline] = {
+  <>
+}
+fun guid::create [baseline] = {
+  <>
+}
+fun event::new_event_handle [baseline] = {
+  <account::CoinRegisterEvent>
+  <account::KeyRotationEvent>
+  <coin::DepositEvent>
+  <coin::WithdrawEvent>
+}
+fun account::new_event_handle [baseline] = {
+  <coin::DepositEvent>
+  <coin::WithdrawEvent>
+}
+fun account::create_account_unchecked [baseline] = {
+  <>
+}
+fun account::create_guid [baseline] = {
+  <>
+}
+fun account::create_resource_account [baseline] = {
+  <>
+}
+fun account::create_signer_with_capability [baseline] = {
+  <>
+}
+fun account::exists_at [baseline] = {
+  <>
+}
+fun account::register_coin [baseline] = {
+  <aptos_coin::AptosCoin>
+}
+fun account::rotate_authentication_key_internal [baseline] = {
+  <>
+}
+fun coin::extract [baseline] = {
+  <#0>
+}
+fun coin::deposit [baseline] = {
+  <#0>
+}
+fun coin::is_account_registered [baseline] = {
+  <aptos_coin::AptosCoin>
+  <#0>
+}
+fun coin::merge [baseline] = {
+  <#0>
+}
+fun coin::register [baseline] = {
+  <aptos_coin::AptosCoin>
+}
+fun coin::transfer [baseline] = {
+  <#0>
+}
+fun coin::withdraw [baseline] = {
+  <#0>
+}
+fun Bbay::add_items [verification] = {
+  <>
+}
+fun Bbay::get_resource_account [baseline] = {
+  <>
+}
+fun Bbay::get_resource_account [verification] = {
+  <>
+}
+fun Bbay::init_module [verification] = {
+  <>
+}
+fun Bbay::order [verification] = {
+  <#0>
+}
+fun Bbay::register_account [verification] = {
+  <>
+}
+spec fun 0x1::vector::$is_empty = {
+  <address>
+  <aggregator::Aggregator>
+  <optional_aggregator::Integer>
+}
+spec fun 0x1::signer::$address_of = {
+  <>
+}
+spec fun 0x1::signer::$borrow_address = {
+  <>
+}
+spec fun 0x1::option::$borrow = {
+  <aggregator::Aggregator>
+  <optional_aggregator::Integer>
+}
+spec fun 0x1::option::$is_none = {
+  <aggregator::Aggregator>
+  <optional_aggregator::Integer>
+}
+spec fun 0x1::option::$is_some = {
+  <aggregator::Aggregator>
+  <optional_aggregator::Integer>
+}
+spec fun 0x1::option::spec_none = {
+  <address>
+}
+spec fun 0x1::option::spec_some = {
+  <address>
+}
+spec fun 0x1::option::spec_is_none = {
+  <address>
+}
+spec fun 0x1::aggregator::spec_get_limit = {
+  <>
+}
+spec fun 0x1::aggregator::spec_aggregator_get_val = {
+  <>
+}
+spec fun 0x1::from_bcs::deserialize = {
+  <bool>
+  <u8>
+  <u64>
+  <u128>
+  <u256>
+  <address>
+  <signer>
+  <vector<u8>>
+  <vector<u64>>
+  <vector<address>>
+  <vector<aggregator::Aggregator>>
+  <vector<optional_aggregator::Integer>>
+  <vector<optional_aggregator::OptionalAggregator>>
+  <vector<#0>>
+  <table::Table<u64, bool>>
+  <table::Table<u64, u64>>
+  <table::Table<u64, vector<u64>>>
+  <table::Table<address, address>>
+  <option::Option<address>>
+  <option::Option<aggregator::Aggregator>>
+  <option::Option<optional_aggregator::Integer>>
+  <option::Option<optional_aggregator::OptionalAggregator>>
+  <string::String>
+  <type_info::TypeInfo>
+  <aggregator::Aggregator>
+  <optional_aggregator::Integer>
+  <optional_aggregator::OptionalAggregator>
+  <guid::GUID>
+  <guid::ID>
+  <event::EventHandle<account::CoinRegisterEvent>>
+  <event::EventHandle<account::KeyRotationEvent>>
+  <event::EventHandle<coin::DepositEvent>>
+  <event::EventHandle<coin::WithdrawEvent>>
+  <account::Account>
+  <account::CapabilityOffer<account::RotationCapability>>
+  <account::CapabilityOffer<account::SignerCapability>>
+  <account::CoinRegisterEvent>
+  <account::SignerCapability>
+  <coin::Coin<aptos_coin::AptosCoin>>
+  <coin::Coin<#0>>
+  <coin::CoinInfo<aptos_coin::AptosCoin>>
+  <coin::CoinInfo<#0>>
+  <coin::CoinStore<aptos_coin::AptosCoin>>
+  <coin::CoinStore<#0>>
+  <coin::DepositEvent>
+  <coin::WithdrawEvent>
+  <coin::Ghost$supply<aptos_coin::AptosCoin>>
+  <coin::Ghost$supply<#0>>
+  <coin::Ghost$aggregate_supply<aptos_coin::AptosCoin>>
+  <coin::Ghost$aggregate_supply<#0>>
+  <aptos_coin::AptosCoin>
+  <Bbay::Owner>
+  <Bbay::Products>
+  <Bbay::ResourceAccountSignerCap>
+  <Bbay::User>
+  <#0>
+}
+spec fun 0x1::from_bcs::deserializable = {
+  <bool>
+  <u8>
+  <u64>
+  <u128>
+  <u256>
+  <address>
+  <signer>
+  <vector<u8>>
+  <vector<u64>>
+  <vector<address>>
+  <vector<aggregator::Aggregator>>
+  <vector<optional_aggregator::Integer>>
+  <vector<optional_aggregator::OptionalAggregator>>
+  <vector<#0>>
+  <table::Table<u64, bool>>
+  <table::Table<u64, u64>>
+  <table::Table<u64, vector<u64>>>
+  <table::Table<address, address>>
+  <option::Option<address>>
+  <option::Option<aggregator::Aggregator>>
+  <option::Option<optional_aggregator::Integer>>
+  <option::Option<optional_aggregator::OptionalAggregator>>
+  <string::String>
+  <type_info::TypeInfo>
+  <aggregator::Aggregator>
+  <optional_aggregator::Integer>
+  <optional_aggregator::OptionalAggregator>
+  <guid::GUID>
+  <guid::ID>
+  <event::EventHandle<account::CoinRegisterEvent>>
+  <event::EventHandle<account::KeyRotationEvent>>
+  <event::EventHandle<coin::DepositEvent>>
+  <event::EventHandle<coin::WithdrawEvent>>
+  <account::Account>
+  <account::CapabilityOffer<account::RotationCapability>>
+  <account::CapabilityOffer<account::SignerCapability>>
+  <account::CoinRegisterEvent>
+  <account::SignerCapability>
+  <coin::Coin<aptos_coin::AptosCoin>>
+  <coin::Coin<#0>>
+  <coin::CoinInfo<aptos_coin::AptosCoin>>
+  <coin::CoinInfo<#0>>
+  <coin::CoinStore<aptos_coin::AptosCoin>>
+  <coin::CoinStore<#0>>
+  <coin::DepositEvent>
+  <coin::WithdrawEvent>
+  <coin::Ghost$supply<aptos_coin::AptosCoin>>
+  <coin::Ghost$supply<#0>>
+  <coin::Ghost$aggregate_supply<aptos_coin::AptosCoin>>
+  <coin::Ghost$aggregate_supply<#0>>
+  <aptos_coin::AptosCoin>
+  <Bbay::Owner>
+  <Bbay::Products>
+  <Bbay::ResourceAccountSignerCap>
+  <Bbay::User>
+  <#0>
+}
+spec fun 0x1::account::spec_create_resource_address = {
+  <>
+}
+spec fun 0x1::aptos_hash::spec_keccak256 = {
+  <>
+}
+spec fun 0x1::aptos_hash::spec_sha2_512_internal = {
+  <>
+}
+spec fun 0x1::aptos_hash::spec_sha3_512_internal = {
+  <>
+}
+spec fun 0x1::aptos_hash::spec_ripemd160_internal = {
+  <>
+}
+spec fun 0x1::aptos_hash::spec_blake2b_256_internal = {
+  <>
+}
+module 0x1::vector = {
+  <u8>
+  <u64>
+  <address>
+  <aggregator::Aggregator>
+  <optional_aggregator::Integer>
+}
+module 0x1::table = {
+  <u64, bool>
+  <u64, u64>
+  <u64, vector<u64>>
+  <address, address>
+}
+module 0x1::bcs = {
+  <address>
+}
+module 0x1::type_info = {
+  <aptos_coin::AptosCoin>
+  <#0>
+}
+axiom at /home/codezeros/.move/https___github_com_aptos-labs_aptos-core_git_mainnet/aptos-move/framework/aptos-framework/../aptos-stdlib/sources/from_bcs.spec.move:18:9+124 = {
+  <bool>
+  <u8>
+  <u64>
+  <u128>
+  <u256>
+  <address>
+  <signer>
+  <vector<u8>>
+  <vector<u64>>
+  <vector<address>>
+  <vector<aggregator::Aggregator>>
+  <vector<optional_aggregator::Integer>>
+  <vector<optional_aggregator::OptionalAggregator>>
+  <vector<#0>>
+  <table::Table<u64, bool>>
+  <table::Table<u64, u64>>
+  <table::Table<u64, vector<u64>>>
+  <table::Table<address, address>>
+  <option::Option<address>>
+  <option::Option<aggregator::Aggregator>>
+  <option::Option<optional_aggregator::Integer>>
+  <option::Option<optional_aggregator::OptionalAggregator>>
+  <string::String>
+  <type_info::TypeInfo>
+  <aggregator::Aggregator>
+  <optional_aggregator::Integer>
+  <optional_aggregator::OptionalAggregator>
+  <guid::GUID>
+  <guid::ID>
+  <event::EventHandle<account::CoinRegisterEvent>>
+  <event::EventHandle<account::KeyRotationEvent>>
+  <event::EventHandle<coin::DepositEvent>>
+  <event::EventHandle<coin::WithdrawEvent>>
+  <account::Account>
+  <account::CapabilityOffer<account::RotationCapability>>
+  <account::CapabilityOffer<account::SignerCapability>>
+  <account::CoinRegisterEvent>
+  <account::SignerCapability>
+  <coin::Coin<aptos_coin::AptosCoin>>
+  <coin::Coin<#0>>
+  <coin::CoinInfo<aptos_coin::AptosCoin>>
+  <coin::CoinInfo<#0>>
+  <coin::CoinStore<aptos_coin::AptosCoin>>
+  <coin::CoinStore<#0>>
+  <coin::DepositEvent>
+  <coin::WithdrawEvent>
+  <coin::Ghost$supply<aptos_coin::AptosCoin>>
+  <coin::Ghost$supply<#0>>
+  <coin::Ghost$aggregate_supply<aptos_coin::AptosCoin>>
+  <coin::Ghost$aggregate_supply<#0>>
+  <aptos_coin::AptosCoin>
+  <Bbay::Owner>
+  <Bbay::Products>
+  <Bbay::ResourceAccountSignerCap>
+  <Bbay::User>
+  <#0>
+}
+axiom at /home/codezeros/.move/https___github_com_aptos-labs_aptos-core_git_mainnet/aptos-move/framework/aptos-framework/../aptos-stdlib/sources/from_bcs.spec.move:21:9+118 = {
+  <bool>
+  <u8>
+  <u64>
+  <u128>
+  <u256>
+  <address>
+  <signer>
+  <vector<u8>>
+  <vector<u64>>
+  <vector<address>>
+  <vector<aggregator::Aggregator>>
+  <vector<optional_aggregator::Integer>>
+  <vector<optional_aggregator::OptionalAggregator>>
+  <vector<#0>>
+  <table::Table<u64, bool>>
+  <table::Table<u64, u64>>
+  <table::Table<u64, vector<u64>>>
+  <table::Table<address, address>>
+  <option::Option<address>>
+  <option::Option<aggregator::Aggregator>>
+  <option::Option<optional_aggregator::Integer>>
+  <option::Option<optional_aggregator::OptionalAggregator>>
+  <string::String>
+  <type_info::TypeInfo>
+  <aggregator::Aggregator>
+  <optional_aggregator::Integer>
+  <optional_aggregator::OptionalAggregator>
+  <guid::GUID>
+  <guid::ID>
+  <event::EventHandle<account::CoinRegisterEvent>>
+  <event::EventHandle<account::KeyRotationEvent>>
+  <event::EventHandle<coin::DepositEvent>>
+  <event::EventHandle<coin::WithdrawEvent>>
+  <account::Account>
+  <account::CapabilityOffer<account::RotationCapability>>
+  <account::CapabilityOffer<account::SignerCapability>>
+  <account::CoinRegisterEvent>
+  <account::SignerCapability>
+  <coin::Coin<aptos_coin::AptosCoin>>
+  <coin::Coin<#0>>
+  <coin::CoinInfo<aptos_coin::AptosCoin>>
+  <coin::CoinInfo<#0>>
+  <coin::CoinStore<aptos_coin::AptosCoin>>
+  <coin::CoinStore<#0>>
+  <coin::DepositEvent>
+  <coin::WithdrawEvent>
+  <coin::Ghost$supply<aptos_coin::AptosCoin>>
+  <coin::Ghost$supply<#0>>
+  <coin::Ghost$aggregate_supply<aptos_coin::AptosCoin>>
+  <coin::Ghost$aggregate_supply<#0>>
+  <aptos_coin::AptosCoin>
+  <Bbay::Owner>
+  <Bbay::Products>
+  <Bbay::ResourceAccountSignerCap>
+  <Bbay::User>
+  <#0>
+}
+axiom at /home/codezeros/.move/https___github_com_aptos-labs_aptos-core_git_mainnet/aptos-move/framework/aptos-framework/../aptos-stdlib/sources/hash.spec.move:8:9+113 = {
+  <>
+}
+axiom at /home/codezeros/.move/https___github_com_aptos-labs_aptos-core_git_mainnet/aptos-move/framework/aptos-framework/../aptos-stdlib/sources/hash.spec.move:13:9+129 = {
+  <>
+}
+axiom at /home/codezeros/.move/https___github_com_aptos-labs_aptos-core_git_mainnet/aptos-move/framework/aptos-framework/../aptos-stdlib/sources/hash.spec.move:18:9+129 = {
+  <>
+}
+axiom at /home/codezeros/.move/https___github_com_aptos-labs_aptos-core_git_mainnet/aptos-move/framework/aptos-framework/../aptos-stdlib/sources/hash.spec.move:23:9+131 = {
+  <>
+}
+axiom at /home/codezeros/.move/https___github_com_aptos-labs_aptos-core_git_mainnet/aptos-move/framework/aptos-framework/../aptos-stdlib/sources/hash.spec.move:28:9+135 = {
+  <>
+}
